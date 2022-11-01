@@ -44,5 +44,18 @@ namespace App.Services
             var result = await _uow.UserDeviceRepository.GetAllDevices();
             return result;
         }
+
+        public async Task Delete(DeleteDeviceRequest request)
+        {
+            await _uow.UserDeviceRepository.Delete(request);
+            _uow.Commit();
+        }
+
+        public async Task<int> Update(UpdateDeviceRequest request)
+        {
+            var result = await _uow.UserDeviceRepository.Update(request);
+            _uow.Commit();
+            return result;
+        }
     }
 }

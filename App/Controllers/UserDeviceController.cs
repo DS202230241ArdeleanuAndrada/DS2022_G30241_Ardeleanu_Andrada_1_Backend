@@ -53,6 +53,22 @@ namespace App.Controllers
             var result = await _userDeviceService.GetAllDevices();
             return Ok(result);
         }
+
+
+        [HttpPost]
+        [Route("deleteDevice")]
+        public async Task<ActionResult<int>> Delete([FromBody] DeleteDeviceRequest request)
+        {
+            await _userDeviceService.Delete(request);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("updateDevice")]
+        public async Task<ActionResult<int>> Update([FromBody] UpdateDeviceRequest request)
+        {
+            return Ok(await _userDeviceService.Update(request));
+        }
     }
 }
 

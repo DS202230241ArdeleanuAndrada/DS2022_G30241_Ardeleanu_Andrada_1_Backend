@@ -12,5 +12,7 @@ namespace App.Services
         Task RemoveDeviceFromUser(RemoveDeviceFromUserRequest request);
         Task<GetUserDevicesResponse> GetUserDevices(GetUserDevicesRequest request);
         Task<IEnumerable<Device>> GetAllDevices();
+        Task Delete(DeleteDeviceRequest request);
+        Task<int> Update(UpdateDeviceRequest request);
     }
 }

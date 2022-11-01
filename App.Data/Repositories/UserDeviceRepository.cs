@@ -96,5 +96,42 @@ namespace App.Data.Repositories
 
             return result;
         }
+
+        public async Task Delete(DeleteDeviceRequest request)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                Id = request.Id
+            });
+
+            await Connection.QueryAsync<int>(
+              "SP_Device_Delete",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+        }
+        public async Task<int> Update(UpdateDeviceRequest request)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Description = request.Description,
+                Address = request.Address,
+                MaxConsumption = request.MaxConsumption
+            });
+
+            var result = await Connection.QueryAsync<int>(
+              "SP_Device_Update",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+
+            return result.FirstOrDefault();
+        }
     }
 }

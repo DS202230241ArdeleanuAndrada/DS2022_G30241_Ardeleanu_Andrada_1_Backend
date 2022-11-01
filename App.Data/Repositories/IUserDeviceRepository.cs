@@ -10,6 +10,7 @@ namespace App.Data.Repositories
         Task AssignDeviceToUser(AssignDeviceToUserRequest request);
         Task RemoveDeviceFromUser(RemoveDeviceFromUserRequest request);
         Task<GetUserDevicesResponse> GetUserDevices(GetUserDevicesRequest request);
-
+        Task Delete(DeleteDeviceRequest request);
+        Task<int> Update(UpdateDeviceRequest request);
     }
 }
