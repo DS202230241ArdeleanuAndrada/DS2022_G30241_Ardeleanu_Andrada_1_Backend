@@ -44,7 +44,7 @@ GO
 
 CREATE PROCEDURE [dbo].[SP_User_AssignDevice] 
 	@UserId		int,
-	@DeviceId		int
+	@DeviceId	int
 
 AS
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
@@ -102,10 +102,51 @@ AS
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 BEGIN TRAN
 	SET NOCOUNT ON;
-	
+	DECLARE @DeviceId int;
+	SELECT @DeviceId=(SELECT DeviceId from [DeviceUser] where UserId=@Id) 
 	DELETE dbo.UserRole where UserId = @Id
 	DELETE dbo.DeviceUser where UserId = @Id
 	DELETE dbo.[User] where Id = @Id
-
+	IF (@DeviceId IS NOT NULL) 
+	DELETE FROM Device WHERE Id=@DeviceId
 
 COMMIT TRAN
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_User_GetAllUsers] 
+AS
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+BEGIN TRAN
+	SET NOCOUNT ON;
+	
+	SELECT 
+		*
+	FROM dbo.[User]
+
+COMMIT TRAN
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_User_Update] 
+	@Id int,
+	@Name nvarchar(100),
+	@Username nvarchar(100),
+	@Password nvarchar(100)
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @userId int;
+	SET @userId=(SELECT Id from [User] where Id=@Id)
+
+	IF(@userId IS NOT NULL)
+	BEGIN
+	UPDATE [dbo].[User]
+		SET Name=@Name, Username=@Username, Password=@Password
+	WHERE Id=@Id
+	END
+	ELSE
+		SELECT -1;
+	SELECT @Id;
+END

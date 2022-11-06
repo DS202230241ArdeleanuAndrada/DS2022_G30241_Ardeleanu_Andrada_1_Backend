@@ -50,5 +50,3 @@ INSERT INTO [dbo].[DeviceUser]
 		   (3,3),
 		   (3,4),
 		   (3,5)
-
-
