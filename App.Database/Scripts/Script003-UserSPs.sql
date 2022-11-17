@@ -110,13 +110,9 @@ AS
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 BEGIN TRAN
 	SET NOCOUNT ON;
-	DECLARE @DeviceId int;
-	SELECT @DeviceId=(SELECT DeviceId from [DeviceUser] where UserId=@Id) 
 	DELETE dbo.UserRole where UserId = @Id
 	DELETE dbo.DeviceUser where UserId = @Id
 	DELETE dbo.[User] where Id = @Id
-	IF (@DeviceId IS NOT NULL) 
-	DELETE FROM Device WHERE Id=@DeviceId
 
 COMMIT TRAN
 
