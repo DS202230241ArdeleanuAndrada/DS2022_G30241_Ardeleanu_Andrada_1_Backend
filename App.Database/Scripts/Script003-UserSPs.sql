@@ -92,6 +92,14 @@ BEGIN TRAN
            (@Name, @Username, @Password)
 
 	SELECT ISNULL(CAST(SCOPE_IDENTITY() as int), -1)
+	DECLARE @UserId INT;
+	SELECT @UserId = ( SELECT Id from [User] where Username=@Username)
+	
+	INSERT INTO [dbo].[UserRole]
+		([UserId]
+		,[RoleId])
+	VALUES
+		(@UserId, '2')
 COMMIT TRAN
 
 GO

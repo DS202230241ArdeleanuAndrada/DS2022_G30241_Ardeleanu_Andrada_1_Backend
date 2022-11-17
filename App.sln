@@ -5,11 +5,13 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{51F353A0-E041-4C01-ACC9-087008C9E26E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Database", "App.Database\App.Database.csproj", "{A7EC8F91-C05E-423E-96CD-B789E9087A49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Database", "App.Database\App.Database.csproj", "{A7EC8F91-C05E-423E-96CD-B789E9087A49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Data", "App.Data\App.Data.csproj", "{CA0F021E-645E-4B92-B180-6BF95CEC858E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Data", "App.Data\App.Data.csproj", "{CA0F021E-645E-4B92-B180-6BF95CEC858E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Models", "App.Models\App.Models.csproj", "{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Models", "App.Models\App.Models.csproj", "{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6919F295-F021-4339-B553-8DE61DDE5921}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6919F295-F021-4339-B553-8DE61DDE5921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6919F295-F021-4339-B553-8DE61DDE5921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6919F295-F021-4339-B553-8DE61DDE5921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6919F295-F021-4339-B553-8DE61DDE5921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

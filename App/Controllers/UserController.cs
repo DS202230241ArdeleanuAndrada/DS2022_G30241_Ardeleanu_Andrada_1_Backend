@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,7 @@ namespace App.Controllers
         public async Task<ActionResult> GetAllUsers()
         {
             var result = await _userService.GetAllUsers();
+            if (!result.Any()) return NotFound();
             return Ok(result);
         }
 
