@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Data\App.Data.csproj" />
+    <ProjectReference Include="..\App.Messaging\App.Messaging.csproj" />
     <ProjectReference Include="..\App.Models\App.Models.csproj" />
   </ItemGroup>
 </Project>

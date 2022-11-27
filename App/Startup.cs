@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using App.Data;
+using App.Messaging;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,7 +30,7 @@ namespace App
                         services.GetService<DbConnectionFactory<SqlConnection>>().GetConnection());
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.RegisterMessaging();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserDeviceService, UserDeviceService>();
 
