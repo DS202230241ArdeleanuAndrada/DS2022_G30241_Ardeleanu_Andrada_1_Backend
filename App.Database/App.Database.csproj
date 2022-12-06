@@ -13,6 +13,7 @@
 		<None Remove="Scripts\Script002-InsertInitialData.sql" />
 		<None Remove="Scripts\Script003-UserSPs.sql" />
 		<None Remove="Scripts\Script004-DeviceSPs.sql" />
+		<None Remove="Scripts\Script005-MeasurementsSPs.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,11 +21,13 @@
 		<EmbeddedResource Include="Scripts\Script002-InsertInitialData.sql" />
 		<EmbeddedResource Include="Scripts\Script003-UserSPs.sql" />
 		<EmbeddedResource Include="Scripts\Script004-DeviceSPs.sql" />
+		<EmbeddedResource Include="Scripts\Script005-MeasurementsSPs.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="dbup-core" Version="4.6.3" />
 		<PackageReference Include="dbup-sqlserver" Version="4.6.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 	</ItemGroup>

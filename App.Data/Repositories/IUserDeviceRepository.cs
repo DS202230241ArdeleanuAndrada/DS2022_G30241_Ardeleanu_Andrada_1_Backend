@@ -12,5 +12,9 @@ namespace App.Data.Repositories
         Task<GetUserDevicesResponse> GetUserDevices(GetUserDevicesRequest request);
         Task Delete(DeleteDeviceRequest request);
         Task<int> Update(UpdateDeviceRequest request);
+        Task<IEnumerable<SensorModel>> GetDeviceMeasurements(GetDeviceMeasurementsRequest request);
+        Task AddDeviceMeasurements(AddDeviceMeasurementsRequest request);
+        Task<IEnumerable<SensorModel>> GetHourlyMeasurements(int deviceId);
+        Task<DeviceWithUser> GetDeviceById(int deviceId);
     }
 }

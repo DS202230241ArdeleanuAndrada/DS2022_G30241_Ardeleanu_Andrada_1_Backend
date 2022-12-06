@@ -133,5 +133,77 @@ namespace App.Data.Repositories
 
             return result.FirstOrDefault();
         }
+
+        public async Task<IEnumerable<SensorModel>> GetDeviceMeasurements(GetDeviceMeasurementsRequest request)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                DeviceId = request.Id
+            });
+
+            var result = await Connection.QueryAsync<SensorModel>(
+              "SP_Device_GetMeasurements",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+
+            return result;
+        }
+
+        public async Task AddDeviceMeasurements(AddDeviceMeasurementsRequest request)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                DeviceId = request.DeviceId,
+                Timestamp = request.Timestamp,
+                MeasurementValue = request.MeasurementValue
+            });
+
+            await Connection.QueryAsync<SensorModel>(
+              "SP_Device_AddMeasurement",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+        }
+
+        public async Task<DeviceWithUser> GetDeviceById(int deviceId)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                DeviceId = deviceId
+            });
+
+            var result = await Connection.QueryFirstAsync<DeviceWithUser>(
+              "SP_Device_GetById",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+
+            return result;
+        }
+
+        public async Task<IEnumerable<SensorModel>> GetHourlyMeasurements(int deviceId)
+        {
+            var parameters = new DynamicParameters(new
+            {
+                DeviceId = deviceId
+            });
+
+            var result = await Connection.QueryAsync<SensorModel>(
+              "SP_Device_GetHourlyMeasurements",
+              param: parameters,
+              commandType: CommandType.StoredProcedure,
+              commandTimeout: 60,
+              transaction: Transaction
+            );
+
+            return result;
+        }
     }
 }

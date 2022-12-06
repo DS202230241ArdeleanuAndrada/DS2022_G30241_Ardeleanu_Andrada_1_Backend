@@ -2,6 +2,7 @@
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace App.Controllers
 {
@@ -10,9 +11,11 @@ namespace App.Controllers
     public class UserDeviceController : ControllerBase
     {
         private readonly IUserDeviceService _userDeviceService;
-        public UserDeviceController(IUserDeviceService userDeviceService)
+        private readonly IHubContext<NotificationHubBasic> _hub;
+        public UserDeviceController(IUserDeviceService userDeviceService, IHubContext<NotificationHubBasic> hub)
         {
             _userDeviceService = userDeviceService;
+            _hub = hub;
         }
 
         [HttpPost]
@@ -68,6 +71,33 @@ namespace App.Controllers
         public async Task<ActionResult<int>> Update([FromBody] UpdateDeviceRequest request)
         {
             return Ok(await _userDeviceService.Update(request));
+        }
+
+        [HttpGet]
+        [Route("getMeasurements")]
+        public async Task<ActionResult> GetDeviceMeasurements([FromQuery] int deviceId)
+        {
+            var result = await _userDeviceService.GetDeviceMeasurements(new GetDeviceMeasurementsRequest { Id = deviceId });
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("addMeasurements")]
+        public async Task<ActionResult> AddDeviceMeasurements([FromBody] AddDeviceMeasurementsRequest request)
+        {
+            await _userDeviceService.AddDeviceMeasurements(request);
+            await _userDeviceService.CheckDeviceHourlyConsumption(request.DeviceId);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("sendNotification")]
+        public async Task SendNotification()
+        {
+            await _hub.Clients.All.SendAsync("ReceiveMessage", "test message");
+            //var not = new NotificationHub();
+            //await not.SendMessage(new Models.Entities.NotifyMessage { Message = "test" });
         }
     }
 }

@@ -42,8 +42,13 @@ namespace App
                     builder.AllowAnyOrigin()
                            .AllowAnyMethod()
                            .AllowAnyHeader()
+                           .AllowCredentials()
+                           .WithOrigins("http://localhost:3000")
 
                         );
+            });
+            services.AddSignalR(e => {
+                e.MaximumReceiveMessageSize = 102400000;
             });
             services.AddSwaggerGen();
         }
@@ -65,6 +70,8 @@ namespace App
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHub<NotificationHub>("/hubs");
+                endpoints.MapHub<NotificationHubBasic>("/hubs");
             });
 
             app.UseSwagger();

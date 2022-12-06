@@ -14,5 +14,8 @@ namespace App.Services
         Task<IEnumerable<Device>> GetAllDevices();
         Task Delete(DeleteDeviceRequest request);
         Task<int> Update(UpdateDeviceRequest request);
+        Task<IEnumerable<SensorModel>> GetDeviceMeasurements(GetDeviceMeasurementsRequest request);
+        Task AddDeviceMeasurements(AddDeviceMeasurementsRequest request);
+        Task CheckDeviceHourlyConsumption(int deviceId);
     }
 }

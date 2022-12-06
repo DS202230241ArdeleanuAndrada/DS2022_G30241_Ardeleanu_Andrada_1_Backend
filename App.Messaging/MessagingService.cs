@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -13,6 +12,7 @@ namespace App.Messaging
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
+        private readonly HttpClient client;
 
         // initialize the connection, channel and queue 
         // inside the constructor to persist them 
@@ -33,6 +33,7 @@ namespace App.Messaging
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
+            client = new HttpClient();
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -66,10 +67,11 @@ namespace App.Messaging
                 Console.WriteLine(" [x] Received {0}", message);
 
 
-                Task.Run(() =>
+                Task.Run( async () =>
                 {
                     var model = JsonConvert.DeserializeObject<SensorModel>(message);
-                      
+
+                    await SendMeasurements(model);
                     // BackgroundService is a Singleton service
                     // IHeroesRepository is declared a Scoped service
                     // by definition a Scoped service can't be consumed inside a Singleton
@@ -86,6 +88,16 @@ namespace App.Messaging
             _channel.BasicConsume(queue: "meteringQ", autoAck: true, consumer: consumer);
 
             return Task.CompletedTask;
+        }
+
+        private async Task SendMeasurements(SensorModel model)
+        {
+            var json = JsonConvert.SerializeObject(model);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = "https://localhost:44347/UserDevice/addMeasurements";
+
+            var response = await client.PostAsync(url, data);
         }
     }
 }
