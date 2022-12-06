@@ -1,7 +1,5 @@
 ﻿using App.Models.Entities;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace App.Services
@@ -10,7 +8,6 @@ namespace App.Services
     {
         public async Task SendMessage(NotifyMessage message)
         {
-            int a = 2;
             await Clients.All.SendAsync("ReceiveMessage", message);
         }
 

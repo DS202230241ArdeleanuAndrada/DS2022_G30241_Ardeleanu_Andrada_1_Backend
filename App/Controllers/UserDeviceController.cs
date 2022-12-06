@@ -96,8 +96,6 @@ namespace App.Controllers
         public async Task SendNotification()
         {
             await _hub.Clients.All.SendAsync("ReceiveMessage", "test message");
-            //var not = new NotificationHub();
-            //await not.SendMessage(new Models.Entities.NotifyMessage { Message = "test" });
         }
     }
 }
