@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{51F353A0-E041-4C01-ACC9-087008C9E26E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{38483280-BC7D-450A-9FDA-12BD6FE2D088} = {38483280-BC7D-450A-9FDA-12BD6FE2D088}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Database", "App.Database\App.Database.csproj", "{A7EC8F91-C05E-423E-96CD-B789E9087A49}"
 EndProject
@@ -11,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Data", "App.Data\App.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Models", "App.Models\App.Models.csproj", "{F742A5A6-0B7A-49FA-A37F-ED97912E95F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Messaging", "App.Messaging\App.Messaging.csproj", "{2B5A97F7-6405-43D2-ABDD-B7DB62C69021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Messaging", "App.Messaging\App.Messaging.csproj", "{2B5A97F7-6405-43D2-ABDD-B7DB62C69021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Hub", "App.Hub\App.Hub.csproj", "{38483280-BC7D-450A-9FDA-12BD6FE2D088}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,10 @@ Global
 		{2B5A97F7-6405-43D2-ABDD-B7DB62C69021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5A97F7-6405-43D2-ABDD-B7DB62C69021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5A97F7-6405-43D2-ABDD-B7DB62C69021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38483280-BC7D-450A-9FDA-12BD6FE2D088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38483280-BC7D-450A-9FDA-12BD6FE2D088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38483280-BC7D-450A-9FDA-12BD6FE2D088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38483280-BC7D-450A-9FDA-12BD6FE2D088}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

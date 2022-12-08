@@ -1,4 +1,5 @@
 ﻿using App.Data;
+using App.Hub;
 using App.Models;
 using App.Models.Entities;
 using Microsoft.AspNetCore.SignalR;

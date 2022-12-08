@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using App.Hub;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Mvc;

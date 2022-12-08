@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using App.Data;
+using App.Hub;
 using App.Messaging;
 using App.Models;
 using App.Services;
@@ -43,7 +44,7 @@ namespace App
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials()
-                           .WithOrigins("http://localhost:3000")
+                           .WithOrigins("http://localhost:3000", "http://localhost:49156", "https://localhost:49156")
 
                         );
             });

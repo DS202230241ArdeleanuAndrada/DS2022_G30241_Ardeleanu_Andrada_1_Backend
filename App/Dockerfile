@@ -10,6 +10,8 @@ WORKDIR /src
 COPY ["App/App.csproj", "App/"]
 COPY ["App.Data/App.Data.csproj", "App.Data/"]
 COPY ["App.Models/App.Models.csproj", "App.Models/"]
+COPY ["App.Hub/App.Hub.csproj", "App.Hub/"]
+COPY ["App.Messaging/App.Messaging.csproj", "App.Messaging/"]
 RUN dotnet restore "App/App.csproj"
 COPY . .
 WORKDIR "/src/App"
@@ -21,5 +23,4 @@ RUN dotnet publish "App.csproj" -c Release -o /app/publish /p:UseAppHost=false
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-#ENV ASPNETCORE_URLS http://*:5000
 ENTRYPOINT ["dotnet", "App.dll"]

@@ -1,10 +1,9 @@
 ﻿using App.Models.Entities;
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 
-namespace App.Services
+namespace App.Hub
 {
-    public class NotificationHubBasic : Hub
+    public class NotificationHubBasic : DynamicHub
     {
         public async Task SendMessage(NotifyMessage message)
         {

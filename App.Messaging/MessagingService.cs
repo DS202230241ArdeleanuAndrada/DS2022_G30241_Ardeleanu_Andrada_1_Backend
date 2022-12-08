@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using App.Data;
+using App.Hub;
+using App.Models;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -13,11 +17,13 @@ namespace App.Messaging
         private IConnection _connection;
         private IModel _channel;
         private readonly HttpClient client;
+        private readonly IUnitOfWork _uow;
+        private readonly IHubContext<NotificationHubBasic> _hub;
 
         // initialize the connection, channel and queue 
         // inside the constructor to persist them 
         // for until the service (or the application) runs
-        public MessagingService(IServiceProvider sp)
+        public MessagingService(IServiceProvider sp, IUnitOfWork uow, IHubContext<NotificationHubBasic> hub)
         {
             _sp = sp;
 
@@ -34,6 +40,8 @@ namespace App.Messaging
                 autoDelete: false,
                 arguments: null);
             client = new HttpClient();
+            _uow = uow;
+            _hub = hub;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -67,7 +75,7 @@ namespace App.Messaging
                 Console.WriteLine(" [x] Received {0}", message);
 
 
-                Task.Run( async () =>
+                Task.Run(async () =>
                 {
                     var model = JsonConvert.DeserializeObject<SensorModel>(message);
 
@@ -94,10 +102,21 @@ namespace App.Messaging
         {
             var json = JsonConvert.SerializeObject(model);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var request = JsonConvert.DeserializeObject<AddDeviceMeasurementsRequest>(json);
+            await _uow.UserDeviceRepository.AddDeviceMeasurements(request);
+            _uow.Commit();
 
-            var url = "https://localhost:44347/UserDevice/addMeasurements";
+            var device = await _uow.UserDeviceRepository.GetDeviceById(request.DeviceId);
+            var hourlyMeasurements = await _uow.UserDeviceRepository.GetHourlyMeasurements(request.DeviceId);
+            var hourlyConsumption = hourlyMeasurements.Sum(m => m.MeasurementValue);
+            if (hourlyConsumption > decimal.Parse(device.MaxConsumption))
+            {
+                await _hub.Clients.Groups(device.Username).SendAsync("ReceiveMessage", $"Device {device.Name} has passed the maximum hourly consumption!");
+            }
+            _uow.Commit();
 
-            var response = await client.PostAsync(url, data);
+            //var url = "https://172.17.0.1:8000/UserDevice/addMeasurements";
+            //var response = await client.PostAsync(url, data);
         }
     }
 }
